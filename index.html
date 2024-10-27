@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="爱心.png" type="image/x-icon">
+  <title>Lê Ngọc Linh</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: black; /* Nền trang chính là màu đen */
+    }
+    #content-frame {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      opacity: 1;
+      transition: opacity 0.5s ease; /* Hiệu ứng mờ dần */
+    }
+  </style>
+</head>
+<body>
+  <audio id="background-audio" src="SaiGonDemNay-KasimHoangVu_349dk.mp4" loop preload="auto" muted></audio>
+  <iframe id="content-frame" src="love.html"></iframe>
+
+  <script>
+    const pages = ["love3.html", "love4.html", "love6.html", "love-add.html"];
+    let currentIndex = 0;
+
+    function preloadPages() {
+      pages.forEach(page => {
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = page;
+        document.head.appendChild(link);
+      });
+    }
+
+    function switchPage() {
+      const iframe = document.getElementById("content-frame");
+      iframe.style.opacity = 0; // Bắt đầu hiệu ứng mờ dần
+      document.body.style.backgroundColor = "black"; // Đảm bảo nền đen khi chuyển trang
+
+      setTimeout(() => {
+        iframe.src = pages[currentIndex];
+        currentIndex = (currentIndex + 1) % pages.length; // Quay lại trang đầu khi đến cuối mảng
+        iframe.style.opacity = 1; // Kết thúc hiệu ứng mờ dần
+      }, 500); // Thời gian mờ dần
+    }
+
+    preloadPages();
+    setInterval(switchPage, 5000);
+
+    // Tải âm thanh khi trang tải
+    const audio = document.getElementById("background-audio");
+    audio.play().catch(error => {
+      console.log("Trình duyệt chặn phát nhạc tự động:", error);
+    });
+
+    // Thêm sự kiện nhấn để bỏ tắt âm thanh
+    document.body.addEventListener('click', function() {
+      audio.muted = false; // Bỏ tắt âm thanh khi người dùng nhấn
+    });
+  </script>
+</body>
+</html>
