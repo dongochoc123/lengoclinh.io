@@ -139,7 +139,6 @@ var _hmt = _hmt || [];
 	    htmlobj.addEventListener('click', function(){
             if(!is_copy){
                 if (typeof ntzgo === 'function') {ntzgo();}
-                copyText(ctext);
                 is_copy = true;
                 var btns = document.querySelectorAll('.div_btn');
                 btns.length > 0 ? btns[0].style.display = "block" : '';
